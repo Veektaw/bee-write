@@ -43,7 +43,13 @@ const parseReceivedData = data => {
     const clientCode = data[4];
     const batteryLevel = data[5];
     const mcuType = data[6];
-    const mcuModel = String.fromCharCode(...data.slice(7, 16));
+
+    const serialNumberBytes = data.slice(7, 16);
+    const serialNumber = serialNumberBytes
+      .map(byte => byte.toString(16).padStart(2, '0'))
+      .join('')
+      .toUpperCase();
+
     const checksum = data[17];
 
     const parsedData =
@@ -54,7 +60,7 @@ const parseReceivedData = data => {
       `Client Code: ${clientCode}, ` +
       `Battery Level: ${batteryLevel}, ` +
       `MCU Type: ${mcuType}, ` +
-      `MCU Model: ${mcuModel}, ` +
+      `Serial Number: ${serialNumber}, ` +
       `Checksum: ${checksum}`;
 
     return parsedData;

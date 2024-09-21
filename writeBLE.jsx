@@ -7,12 +7,12 @@ const BleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
 const writeCurrentDateTimeToDevice = async peripheralId => {
   const currentDate = new Date();
-  const year = currentDate.getUTCFullYear() - 2000; // Year since 2000
-  const month = currentDate.getUTCMonth() + 1; // Month (0-indexed)
-  const day = currentDate.getUTCDate(); // Day of the month
-  const hour = currentDate.getUTCHours(); // Hour
-  const minute = currentDate.getUTCMinutes(); // Minute
-  const second = currentDate.getUTCSeconds(); // Second
+  const year = currentDate.getFullYear() - 2000; // Local year
+  const month = currentDate.getMonth() + 1;      // Local month (0-indexed, hence +1)
+  const day = currentDate.getDate();             // Local day of the month
+  const hour = currentDate.getHours();           // Local hour
+  const minute = currentDate.getMinutes();       // Local minute
+  const second = currentDate.getSeconds(); // Second
 
   // Calculate checksum
   let checksum = 0;
